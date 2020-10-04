@@ -1,7 +1,6 @@
 FROM php:7.4.1-fpm
 
 COPY php.ini /usr/local/etc/php/
-COPY install-composer.sh /
 
 RUN apt update
 RUN apt install -y wget git unzip libpq-dev
@@ -16,7 +15,7 @@ RUN apt install -y npm \
 
 # Install PHP Extensions
 RUN apt install -y zlib1g-dev mariadb-client libzip-dev libonig-dev
-RUN docker-php-ext-install zip pdo_mysql
+RUN docker-php-ext-install -j$(nproc) zip pdo_mysql
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php

@@ -21,8 +21,8 @@ services:
     - php
 
   db:
-    image: mysql:5.7
-    container_name: db-host
+    image: mysql:8.0
+    container_name: db
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: database
