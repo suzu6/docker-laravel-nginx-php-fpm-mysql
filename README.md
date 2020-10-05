@@ -1,34 +1,49 @@
-# Laravel + Vue のサンプル
+# LaravelのDocker環境
 
-[Vue + Vue Router + Vuex + Laravelで写真共有アプリを作ろう](https://www.hypertextcandy.com/vue-laravel-tutorial-introduction/)をなぞって作成しています。
+構成とバージョン。最新になるようにしています。
+- php (php-fpm) 7.4.1
+  - composer 1.10.13
+  - nodejs v12.18.4
+  - npm 6.14.6
+- mysql 8.0 (5.7も可能)
+  - パスワードなど初期設定をする。
+- nginx 1.19.2
+  - Laravel向けのconfを用意する。
 
+詳細は[ブログ](https://www.suzu6.net/posts/254-laravel-docker-compose/)に書いた。
 
-docker-compose up -d
+## ディレクトリ構成
+```sh
+/project
+├─ /docker    # コンテナ内のデータ保存先
+|  ├─ /db
+|  |  ├─ /data           # データベース保存先
+|  |  ├─ /sql
+|  |  └─ /my.conf        # mysqlの設定
+|  ├─ /nginx
+|  |  └─ /default.conf   # Nginxの設定
+|  └─ /php
+|     ├─ /Dockerfile     # phpコンテナの設定
+|     └─ /php.ini        # phpの設定
+├─ /web       # アプリケーションコード
+└─ docker-compose.yml
+``` 
 
-docker-compose down --rmi all --volumes
+## docker-composeのコマンド
+ホスト側でよく使うコマンドです。
 
-## 
+```sh
+# コンテナ起動
+$ docker-compose up -d
 
-```log
-checking for libzip >= 0.11... no
-configure: error: Package requirements (libzip >= 0.11) were not met:
+# http://localhost/ で確認できる。
 
-No package 'libzip' found
+# コンテナ削除
+$ docker-compose down
 
-Consider adjusting the PKG_CONFIG_PATH environment variable if you
-installed software in a non-standard prefix.
+# コンテナ、イメージ、ボリューム、ネットワークを一括完全消去
+$ docker-compose down --rmi all --volumes
 
-Alternatively, you may set the environment variables LIBZIP_CFLAGS
-and LIBZIP_LIBS to avoid the need to call pkg-config.
-See the pkg-config man page for more details.
-ERROR: Service 'php' failed to build : The command '/bin/sh -c apt-get update   && apt-get install -y wget git unzip libpq-dev   && : 'Install Node.js'   &&  curl -sL https://deb.nodesource.com/setup_12.x | bash -   && apt-get install -y nodejs   && : 'Install PHP Extensions'   && apt-get install -y zlib1g-dev mariadb-client   && docker-php-ext-install zip pdo_mysql   && : 'Install Composer'   && chmod 755 /install-composer.sh   && /install-composer.sh   && mv composer.phar /usr/local/bin/composer' returned a non-zero code: 1
+# phpコンテナに接続する（コンテナ名を変えて他のコンテナに接続できる）
+$ docker-compose exec php bash
 ```
-
-php:7.4-fpmだとdocker-php-ext-install でphp拡張をインストールする際に`libzip`を使うようで`No package 'libzip' found`が出た。
-
-https://qiita.com/khara_nasuo486/items/1aa40d26efb3eb9a5a04
-
-
-# E: Unable to locate package oniguruma
-> mbstring に替わり libonig-dev というパッケージを追加する必要があるそう。
-https://qiita.com/June8715/items/1df5958b95c1ff2d4c1b
