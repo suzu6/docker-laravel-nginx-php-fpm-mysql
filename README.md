@@ -35,8 +35,21 @@
 ```sh
 # コンテナ起動
 $ docker-compose up -d
-
 # http://localhost/ で確認できる。
+
+# イメージの情報を表示
+$ docker-compose images
+Container   Repository    Tag       Image Id       Size
+---------------------------------------------------------
+db          mysql        8.0      2933adc350f3   546.1 MB
+nginx       nginx        latest   35c43ace9216   133.1 MB
+php         docker_php   latest   c589f52d0377   790.5 MB
+
+# サービスのログを出力します(phpの例)
+$ docker-compose logs php
+Attaching to php
+php      | [22-Feb-2021 20:39:06] NOTICE: fpm is running, pid 1      
+php      | [22-Feb-2021 20:39:06] NOTICE: ready to handle connections
 
 # コンテナ削除
 $ docker-compose down
@@ -47,3 +60,25 @@ $ docker-compose down --rmi all --volumes
 # phpコンテナに接続する（コンテナ名を変えて他のコンテナに接続できる）
 $ docker-compose exec php bash
 ```
+
+## バージョン確認
+```bash
+$ docker-compose exec php bash
+root@41b99e6e8ed6:/var/www#
+
+# php -v
+PHP 8.0.2 (cli) (built: Feb  9 2021 19:20:59) ( NTS )
+Copyright (c) The PHP Group
+Zend Engine v4.0.2, Copyright (c) Zend Technologies
+
+# node -v
+v15.9.0
+# composer -V
+Composer version 2.0.9 2021-01-27 16:09:27
+
+# 出る
+# exit
+```
+
+## php.ini
+[PHP7.4 ぼくのかんがえたさいきょうのphp.ini](https://qiita.com/ucan-lab/items/0d74378e1b9ba81699a9)を参考にした。
