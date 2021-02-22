@@ -1,11 +1,17 @@
 version: '3'
 
+volumes:
+  vendor-store:
+  node_modules-store:
+
 services:
   php:
     container_name: php
-    build: ./docker/php
+    build: ./docker/php80
     volumes:
     - ./web:/var/www
+    - vendor-store:/var/www/laravel/vendor
+    - node_modules-store:/var/www/laravel/node_modules
     environment:
       TZ: Asia/Tokyo
 
