@@ -82,3 +82,16 @@ Composer version 2.0.9 2021-01-27 16:09:27
 
 ## php.ini
 [PHP7.4 ぼくのかんがえたさいきょうのphp.ini](https://qiita.com/ucan-lab/items/0d74378e1b9ba81699a9)を参考にした。
+
+## laravel .env
+
+LaravelからDBに接続するための.envの設定。
+```conf
+DB_CONNECTION=mysql
+DB_HOST=db
+DB_PORT=3306
+DB_DATABASE=database
+DB_USERNAME=docker
+DB_PASSWORD=docker
+```
+`DB_HOST`はlocalhostではなくコンテナ名にすることに注意する。
