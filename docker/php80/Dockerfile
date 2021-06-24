@@ -29,3 +29,5 @@ WORKDIR /var/www
 RUN chown -R www-data:www-data /var/www
 
 RUN composer global require "laravel/installer"
+
+RUN chmod -R 777 /var/www/laravel/storage
