@@ -1,4 +1,4 @@
-FROM php:8.0.2-fpm
+FROM php:8.0-fpm
 
 COPY php.ini /usr/local/etc/php/
 
@@ -27,7 +27,3 @@ WORKDIR /var/www
 # php-fpmはデフォルトのユーザwww-dataで動く。https://stackoverflow.com/questions/48619445/permission-denied-error-using-laravel-docker
 # 変更する場合は /usr/local/etc/php-fpm.d/www.conf でユーザー名を変える。
 RUN chown -R www-data:www-data /var/www
-
-RUN composer global require "laravel/installer"
-
-RUN chmod -R 777 /var/www/laravel/storage
