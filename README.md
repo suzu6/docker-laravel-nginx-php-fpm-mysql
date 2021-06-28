@@ -1,10 +1,15 @@
 # LaravelのDocker環境
 
-構成とバージョン。最新になるようにしています。
+構成とバージョン。
+ここでは具体的なバージョンを書いていますが、基本的に環境構築時の各最新バージョンになります。
 - php (php-fpm) 7.4.1
   - composer 1.10.13
   - nodejs v12.18.4
   - npm 6.14.6
+- php80 (php-fpm) 8.0.7
+  - composer 2.1.3
+  - nodejs v16.4.0
+  - npm 7.18.1
 - mysql 8.0 (5.7も可能)
   - パスワードなど初期設定をする。
 - nginx 1.19.2
@@ -64,20 +69,34 @@ $ docker-compose exec php bash
 ## バージョン確認
 ```bash
 $ docker-compose exec php bash
-root@41b99e6e8ed6:/var/www#
+root@4e385c355d92:/var/www#
 
 # php -v
-PHP 8.0.2 (cli) (built: Feb  9 2021 19:20:59) ( NTS )
+PHP 8.0.7 (cli) (built: Jun 23 2021 12:34:03) ( NTS )
 Copyright (c) The PHP Group
-Zend Engine v4.0.2, Copyright (c) Zend Technologies
+Zend Engine v4.0.7, Copyright (c) Zend Technologies
 
 # node -v
-v15.9.0
+v16.4.0
+# npm -v
+7.18.1
 # composer -V
-Composer version 2.0.9 2021-01-27 16:09:27
+   ______
+  / ____/___  ____ ___  ____  ____  ________  _____
+ / /   / __ \/ __ `__ \/ __ \/ __ \/ ___/ _ \/ ___/
+/ /___/ /_/ / / / / / / /_/ / /_/ (__  )  __/ /
+\____/\____/_/ /_/ /_/ .___/\____/____/\___/_/
+                    /_/
+Composer version 2.1.3 2021-06-09 16:31:20
 
-# 出る
+# コンテナから出るコマンド
 # exit
+```
+
+## install laravel 
+
+```bash
+composer create-project laravel/laravel laravel
 ```
 
 ## php.ini
